@@ -51,5 +51,28 @@ public enum FieldNameFormatters implements FieldNameFormatter {
             }
             return builder.toString();
         }
+    },
+    /**
+     * A more YAML-friendly case pattern.
+     *
+     * Represents a {@code FieldNameFormatter} that transforms <i>camelCase</i> to
+     * <i>LOWER_HYPHEN</i>.
+     * <p>
+     * For example, <i>myPrivateField</i> becomes <i>my-private-field</i>.
+     */
+    LOWER_HYPHEN {
+        @Override
+        public String fromFieldName(String fieldName) {
+            StringBuilder builder = new StringBuilder(fieldName.length());
+            for (char c : fieldName.toCharArray()) {
+                if (Character.isLowerCase(c)) {
+                    builder.append(c);
+                } else if (Character.isUpperCase(c)) {
+                    c = Character.toLowerCase(c);
+                    builder.append('-').append(c);
+                }
+            }
+            return builder.toString();
+        }
     }
 }
