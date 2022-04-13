@@ -1,6 +1,7 @@
 package de.exlll.configlib;
 
 import de.exlll.configlib.Converter.ConversionInfo;
+import de.exlll.configlib.annotation.Convert;
 import de.exlll.configlib.annotation.Format;
 import de.exlll.configlib.filter.FieldFilter;
 import de.exlll.configlib.format.FieldNameFormatter;
@@ -20,6 +21,11 @@ enum FieldMapper {
         FieldFilter filter = props.getFilter();
         for (Field field : filter.filterDeclaredFieldsOf(inst.getClass())) {
             Object val = toConvertibleObject(field, inst, mappingInfo);
+            /*if(field.isAnnotationPresent(Convert.class)) {
+                Converter<Object, Object> converter = Converters.toObjectConverter(Converters.instantiateConverter(field));
+                ConversionInfo info = ConversionInfo.from(field, inst, mappingInfo);
+                val = converter.convertTo(val, info);
+            }*/
             FieldNameFormatter fnf = selectFormatter(mappingInfo);
             String fn = fnf.fromFieldName(field.getName());
             map.put(fn, val);

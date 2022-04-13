@@ -31,6 +31,7 @@ public final class Comments {
                 .stream(cls.getDeclaredFields())
                 .filter(Comments::isCommented)
                 .collect(toMap(Field::getName, Comments::getComments));
+
         return new Comments(classComments, fieldComments);
     }
 

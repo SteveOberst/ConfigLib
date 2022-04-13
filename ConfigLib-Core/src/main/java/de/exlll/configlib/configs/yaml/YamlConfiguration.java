@@ -19,9 +19,11 @@ import java.util.Objects;
 
 public abstract class YamlConfiguration extends Configuration<YamlConfiguration> {
     private final YamlSource source;
+    private final Path path;
 
     protected YamlConfiguration(Path path, YamlProperties properties) {
         super(properties);
+        this.path = path;
         this.source = new YamlSource(path, properties);
     }
 
@@ -53,6 +55,10 @@ public abstract class YamlConfiguration extends Configuration<YamlConfiguration>
         }
     }
 
+    public Path getPath() {
+        return path;
+    }
+
     Comments getComments() {
         return comments;
     }
@@ -65,6 +71,7 @@ public abstract class YamlConfiguration extends Configuration<YamlConfiguration>
         private final Representer representer;
         private final DumperOptions options;
         private final Resolver resolver;
+        private final boolean prependNewLineToComments;
 
         protected YamlProperties(Builder<?> builder) {
             super(builder);
@@ -74,6 +81,7 @@ public abstract class YamlConfiguration extends Configuration<YamlConfiguration>
             this.representer = builder.representer;
             this.options = builder.options;
             this.resolver = builder.resolver;
+            this.prependNewLineToComments = builder.prependNewLineToComments;
         }
 
         public static Builder<?> builder() {
@@ -109,6 +117,10 @@ public abstract class YamlConfiguration extends Configuration<YamlConfiguration>
             return resolver;
         }
 
+        public final boolean isPrependNewLineToComments() {
+            return prependNewLineToComments;
+        }
+
         public static abstract class Builder<B extends Builder<B>>
                 extends Properties.Builder<B> {
             private List<String> prependedComments = Collections.emptyList();
@@ -117,6 +129,7 @@ public abstract class YamlConfiguration extends Configuration<YamlConfiguration>
             private Representer representer = new Representer();
             private DumperOptions options = new DumperOptions();
             private Resolver resolver = new Resolver();
+            private boolean prependNewLineToComments;
 
             protected Builder() {
                 options.setIndent(2);
@@ -144,6 +157,17 @@ public abstract class YamlConfiguration extends Configuration<YamlConfiguration>
              */
             public final B setAppendedComments(List<String> appendedComments) {
                 this.appendedComments = Objects.requireNonNull(appendedComments);
+                return getThis();
+            }
+
+            /**
+             * sets whether a new line should be prepended before comments.
+             *
+             * @param prepend
+             * @return
+             */
+            public final B setPrependNewlineToComments(boolean prepend) {
+                this.prependNewLineToComments = prepend;
                 return getThis();
             }
 

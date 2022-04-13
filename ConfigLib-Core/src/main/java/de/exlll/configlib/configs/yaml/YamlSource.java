@@ -62,6 +62,7 @@ final class YamlSource implements ConfigurationSource<YamlConfiguration> {
 
     private static final class CommentAdder {
         private static final Pattern PREFIX_PATTERN = Pattern.compile("^\\w+:.*");
+        private static final Pattern PREFIX_PATTERN_KEBAB = Pattern.compile("^\\s*(?=\\S*[*-?])([a-zA-Z'-]+:).*");
         private final String dump;
         private final Comments comments;
         private final YamlComments yamlComments;
@@ -114,7 +115,7 @@ final class YamlSource implements ConfigurationSource<YamlConfiguration> {
         private void addDumpLines(List<String> dumpLines) {
             for (String dumpLine : dumpLines) {
                 Matcher m = PREFIX_PATTERN.matcher(dumpLine);
-                if (m.matches()) {
+                if (m.matches() || PREFIX_PATTERN_KEBAB.matcher(dumpLine).matches()) { // Hot fix for kebab case formatting
                     addFieldComment(dumpLine);
                 }
                 builder.append(dumpLine).append('\n');
@@ -125,10 +126,11 @@ final class YamlSource implements ConfigurationSource<YamlConfiguration> {
             Map<String, String> map = yamlComments.fieldCommentAsStrings(
                     props.getFormatter()
             );
+            final String prepend = props.isPrependNewLineToComments() ? "\n" : "";
             for (Map.Entry<String, String> entry : map.entrySet()) {
                 String prefix = entry.getKey() + ":";
                 if (dumpLine.startsWith(prefix)) {
-                    builder.append(entry.getValue()).append('\n');
+                    builder.append(prepend).append(entry.getValue()).append('\n');
                     break;
                 }
             }

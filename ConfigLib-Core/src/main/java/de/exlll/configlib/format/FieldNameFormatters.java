@@ -56,11 +56,11 @@ public enum FieldNameFormatters implements FieldNameFormatter {
      * A more YAML-friendly case pattern.
      *
      * Represents a {@code FieldNameFormatter} that transforms <i>camelCase</i> to
-     * <i>LOWER_HYPHEN</i>.
+     * <i>LOWER_KEBAB</i>.
      * <p>
      * For example, <i>myPrivateField</i> becomes <i>my-private-field</i>.
      */
-    LOWER_HYPHEN {
+    LOWER_KEBAB {
         @Override
         public String fromFieldName(String fieldName) {
             StringBuilder builder = new StringBuilder(fieldName.length());

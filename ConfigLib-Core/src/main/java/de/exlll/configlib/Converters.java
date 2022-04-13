@@ -113,7 +113,7 @@ final class Converters {
         return toObjectConverter(converter);
     }
 
-    private static Converter<?, ?> instantiateConverter(Field field) {
+    static Converter<?, ?> instantiateConverter(Field field) {
         Convert convert = field.getAnnotation(Convert.class);
         return cache.computeIfAbsent(convert.value(), cls -> {
             checkConverterHasNoArgsConstructor(cls, field.getName());
@@ -163,7 +163,7 @@ final class Converters {
         return selector("list", "set", "map").apply(containerType);
     }
 
-    private static Converter<Object, Object> toObjectConverter(
+    static Converter<Object, Object> toObjectConverter(
             Converter<?, ?> converter
     ) {
         /* This cast may result in a ClassCastException when converting objects
@@ -314,7 +314,7 @@ final class Converters {
             Object o = element.values().iterator().next();
             Function<Object, ?> cf = createToConversionFunction(o, info);
             Function<Map.Entry<?, ?>, ?> f = e -> cf.apply(e.getValue());
-            return element.entrySet().stream().collect(toMap(Map.Entry::getKey, f));
+            return new LinkedHashMap<>(element.entrySet().stream().collect(toMap(Map.Entry::getKey, f)));
         }
 
         @Override
@@ -332,7 +332,7 @@ final class Converters {
             Object o = element.values().iterator().next();
             Function<Object, ?> cf = createFromConversionFunction(o, info);
             Function<Map.Entry<?, ?>, ?> f = e -> cf.apply(e.getValue());
-            return element.entrySet().stream().collect(toMap(Map.Entry::getKey, f));
+            return new LinkedHashMap<>(element.entrySet().stream().collect(toMap(Map.Entry::getKey, f)));
         }
 
         @Override
