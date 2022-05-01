@@ -76,6 +76,17 @@ enum Reflect {
         }
     }
 
+    static Field getField(String fieldName, Class<?> cls) {
+        try {
+            Field field = cls.getDeclaredField(fieldName);
+            field.setAccessible(true);
+            return field;
+        } catch (NoSuchFieldException exception) {
+            String msg = "Field " + fieldName + " could not be found in " + cls;
+            throw new ConfigurationException(msg, exception);
+        }
+    }
+
     static void setValue(Field field, Object inst, Object value) {
         try {
             field.setAccessible(true);

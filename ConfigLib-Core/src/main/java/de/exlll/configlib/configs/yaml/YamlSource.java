@@ -5,9 +5,12 @@ import de.exlll.configlib.ConfigurationSource;
 import de.exlll.configlib.configs.yaml.YamlConfiguration.YamlProperties;
 import org.yaml.snakeyaml.Yaml;
 
+import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -39,7 +42,7 @@ final class YamlSource implements ConfigurationSource<YamlConfiguration> {
                 yaml.dump(map), config.getComments(), props
         );
         String commentedDump = adder.getCommentedDump();
-        Files.write(configPath, commentedDump.getBytes());
+        Files.write(configPath, commentedDump.getBytes(StandardCharsets.UTF_8));
     }
 
     private void createParentDirectories() throws IOException {
