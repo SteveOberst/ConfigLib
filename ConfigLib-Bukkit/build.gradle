@@ -1,0 +1,8 @@
+plugins {
+    id 'java'
+    id 'com.palantir.git-version' version '0.12.1'
+    id "com.github.johnrengelman.shadow" version "7.1.0"
+}
+
+group = 'net.sxlver.configlib.bukkit'
+version = 'v2.2.2'
