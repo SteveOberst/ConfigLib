@@ -7,8 +7,8 @@ The first thing you have to do is to let your `InMemoryConfiguration` class
 extend `Configuration<InMemoryConfiguration>`.
 
 ```java
-import de.exlll.configlib.Configuration;
-import de.exlll.configlib.ConfigurationSource;
+import net.sxlver.configlib.Configuration;
+import net.sxlver.configlib.ConfigurationSource;
 
 public class InMemoryConfiguration extends Configuration<InMemoryConfiguration> {}
 ```

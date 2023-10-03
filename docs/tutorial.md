@@ -374,11 +374,10 @@ public final class GamePlugin extends JavaPlugin {
 ### Full example
 
 ```java
-import de.exlll.configlib.Converter;
-import de.exlll.configlib.annotation.*;
-import de.exlll.configlib.configs.yaml.BukkitYamlConfiguration;
-import de.exlll.configlib.configs.yaml.BukkitYamlConfiguration.BukkitYamlProperties;
-import de.exlll.configlib.format.FieldNameFormatters;
+import net.sxlver.configlib.Converter;
+import yaml.configs.net.sxlver.configlib.BukkitYamlConfiguration;
+import yaml.configs.net.sxlver.configlib.BukkitYamlConfiguration.BukkitYamlProperties;
+import format.net.sxlver.configlib.FieldNameFormatters;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -497,7 +496,9 @@ final class User {
     private Credentials credentials;
     private String email;
 
-    private User() { this("", "", ""); }
+    private User() {
+        this("", "", "");
+    }
 
     public User(String username, String password, String email) {
         this.credentials = new Credentials(username, password);
@@ -519,7 +520,9 @@ final class Credentials {
     private String password;
 
     // ConfigurationElements must have a no-args constructor (can be private)
-    private Credentials() { this("", ""); }
+    private Credentials() {
+        this("", "");
+    }
 
     public Credentials(String username, String password) {
         this.username = username;

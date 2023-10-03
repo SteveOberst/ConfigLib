@@ -397,11 +397,11 @@ For a step-by-step tutorial of a more complex example see:
 [Tutorial](https://github.com/Exlll/ConfigLib/wiki/Tutorial)
 
 ```java
-import de.exlll.configlib.annotation.Comment;
-import de.exlll.configlib.annotation.ConfigurationElement;
-import de.exlll.configlib.configs.yaml.BukkitYamlConfiguration;
-import de.exlll.configlib.configs.yaml.BukkitYamlConfiguration.BukkitYamlProperties;
-import de.exlll.configlib.format.FieldNameFormatters;
+import annotation.net.sxlver.configlib.Comment;
+import annotation.net.sxlver.configlib.ConfigurationElement;
+import yaml.configs.net.sxlver.configlib.BukkitYamlConfiguration;
+import yaml.configs.net.sxlver.configlib.BukkitYamlConfiguration.BukkitYamlProperties;
+import format.net.sxlver.configlib.FieldNameFormatters;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;

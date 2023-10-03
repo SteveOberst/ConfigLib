@@ -33,7 +33,7 @@ subprojects {
         repositories {
             maven {
                 name = "GitHubPackages"
-                url = uri("https://maven.pkg.github.com/Exlll/ConfigLib")
+                url = uri("https://maven.pkg.github.com/Sxlver/ConfigLib")
                 credentials {
                     username = System.getenv("GITHUB_ACTOR")
                     password = System.getenv("GITHUB_TOKEN")
@@ -51,6 +51,10 @@ subprojects {
 project(":configlib-core") {
     dependencies {
         implementation("org.yaml:snakeyaml:1.20")
+    }
+
+    tasks.jar {
+
     }
 }
 project(":configlib-bukkit") {
